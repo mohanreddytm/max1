@@ -596,3 +596,36 @@ margin-left: 2px;}
     justify-content: center;
     align-items: center;
 }
+
+@media screen and (max-width: 768px) {
+    .login-left-cont{
+        display: none;
+    }
+    .login-right-cont{
+        width: 100%;
+/* 
+        background-color: green; */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+
+    }
+    .login-form{
+        width: 80%;
+        margin-top: 40px;
+        /* background-color: pink; */
+
+    }
+    .login-right-main-cont{
+        width: 90%;
+/* background-color: yellow; */
+display: flex;
+flex-direction: column;
+align-items: center;
+margin: 20px;
+
+    }
+
+    
+}

@@ -75,6 +75,9 @@ const LoginRoute = () => {
 
     const handleSendOtp = (e) => {
         e.preventDefault();
+                const form = e.target.closest("form"); // Get form element from the button event
+        if (!form.reportValidity()) return;
+
 
     if(email !== '' && firstname !== '' && lastname !== ''){
             setShowOtp("verify")
@@ -105,6 +108,9 @@ const LoginRoute = () => {
 
   const onClickVeriyOTP = (e) => {
     e.preventDefault();
+            const form = e.target.closest("form"); // Get form element from the button event
+        if (!form.reportValidity()) return;
+
     if(userOTP === otp){
         console.log("OTP verified successfully")
         setContinueSignUp(true)
@@ -117,6 +123,9 @@ const LoginRoute = () => {
 
   const onClickContinue = (e) => {
     e.preventDefault();
+            const form = e.target.closest("form"); // Get form element from the button event
+        if (!form.reportValidity()) return;
+
     if(signInPassword === ''){
         setShowPasswordOne(false)
     }else{
@@ -273,11 +282,6 @@ const LoginRoute = () => {
         
 
     }
-                
-
-    console.log("renderProfile", renderProfile)
-
-
 
 
   return (
