@@ -71,7 +71,7 @@
 
 .login-profile-image{
     width: 100px;
-    height: 100px;
+    height: 120px;
     border-radius: 50%;
     margin: 10px 1px 10px 10px;
 }
@@ -560,4 +560,39 @@ margin-left: 2px;}
 
 .make-cursor-error{
     cursor: not-allowed;
+}
+
+.loading-one{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: #efefef;
+
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-one-mini-cont{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: conic-gradient(#efefef 10%, #00ffae);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: rotate 1s linear infinite;
+}
+
+.loading-cont-signin{
+    background-color: #efefef;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

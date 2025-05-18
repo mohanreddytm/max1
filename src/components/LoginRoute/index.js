@@ -26,16 +26,20 @@ const LoginRoute = () => {
     const [inValidOTP, setInValidOTP] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
     const [count , setCount] = useState(30)
-    const [showOpt, setShowOtp] = useState("done")
+    const [showOpt, setShowOtp] = useState("getotp")
     const [userOTP, setUserOTP] = useState('')
     const [continueSignUp, setContinueSignUp] = useState(false)
     const [changetopassword, setChangeToPassword] = useState(false)
+
+    const [statusOfTheProfilePhoto, setStatusOfTheProfilePhoto] = useState("PRIMARY")
 
     const [ishas8length, setIsHas8Length] = useState(false)
     const [isUpperCase, setIsUpperCase] = useState(false)
     const [isLowerCase, setIsLowerCase] = useState(false)
     const [isNumber, setIsNumber] = useState(false)
     const [isSpecialChar, setIsSpecialChar] = useState(false)
+
+    const [renderProfile, setRenderProfile] = useState(false)
 
     const [showPasswordOne, setShowPasswordOne] = useState(false)
     const [showConfirmPasswordTrue, setShowConfirmPasswordTrue] = useState(false)
@@ -127,25 +131,25 @@ const LoginRoute = () => {
 
 
 
-const mainButton = () => {
-    if(showOpt === "verify"){
-        return <button className='send-otp-button' type='submit' onClick={onClickVeriyOTP} >Verify OTP</button>
+    const mainButton = () => {
+        if(showOpt === "verify"){
+            return <button className='send-otp-button' type='submit' onClick={onClickVeriyOTP} >Verify OTP</button>
+        }
+        else if(showOpt === "done"){
+            return <button className='send-otp-button' type='submit' onClick={onClickContinue} >Continue</button>
+        }
+        else{
+            return <button className='send-otp-button' type='submit' onClick={handleSendOtp} >Send OTP</button>
+        }
     }
-    else if(showOpt === "done"){
-        return <button className='send-otp-button' type='submit' onClick={onClickContinue} >Continue</button>
-    }
-    else{
-        return <button className='send-otp-button' type='submit' onClick={handleSendOtp} >Send OTP</button>
-    }
-}
 
-const onClickBackFinalPage = (e) => {
-    e.preventDefault();
-    setShowPasswordOne(false)
-    setChangeToPassword(false)
-    setContinueSignUp(false)
-    setShowOtp("done")
-}
+    const onClickBackFinalPage = (e) => {
+        e.preventDefault();
+        setShowPasswordOne(false)
+        setChangeToPassword(false)
+        setContinueSignUp(false)
+        setShowOtp("done")
+    }
 
     const onChangeConfirmPasswordone = (e) => {
         const { value } = e.target
@@ -198,6 +202,81 @@ const onClickBackFinalPage = (e) => {
             setShowPasswordOne(false);
         }
     }
+
+    const onChangeUploadImage = async (e) => {
+        setStatusOfTheProfilePhoto("LOADING")
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const formData = new FormData();
+        formData.append("image", file);
+
+        const res = await fetch("https://api.imgbb.com/1/upload?key=ec8d175c74f4bcd9fa0103102b222c20", {
+            method: "POST",
+            body: formData,
+        });
+
+        const data = await res.json();
+        const imageUrl = data.data.url;
+        setStatusOfTheProfilePhoto("DONE")
+        setRenderProfile(imageUrl); // Now you have a public URL
+
+    };
+
+    const profileImage = () => {
+        if(statusOfTheProfilePhoto === "PRIMARY"){
+            return  <img src={emptyprofile} alt="Profile" className='login-profile-image'  />
+        }else if(statusOfTheProfilePhoto === "LOADING"){
+            return <div className='login-profile-image loading-cont-signin'>
+                <div className='loading-one-mini-cont'>
+                        <p className='loading-one'></p>
+                </div>
+                
+            </div>
+        }else{
+            return <img src={renderProfile} alt="Profile" className='login-profile-image' />
+        }
+    }
+
+    const onClickSignInButton = (e) => {
+
+        e.preventDefault();
+
+        const form = e.target.closest("form"); // Get form element from the button event
+        if (!form.reportValidity()) return;
+
+        if(isLowerCase && isUpperCase && isNumber && isSpecialChar && ishas8length){
+            setShowPasswordOne(false)
+        }else{
+            setShowPasswordOne(true)
+        }
+        if(showConfirmPasswordTrue){
+            setShowConfirmPasswordTrue(true)
+        }
+
+        if(showPasswordOne === false && showConfirmPasswordTrue === false){
+
+                const data = {
+                    email: email,
+                    firstName: firstname,
+                    lastName: lastname,
+                    password: signInPassword,
+                    profileImage: renderProfile,
+                    role: "USER",
+                    status: "ACTIVE",
+                    createdAt: new Date().toISOString(),
+                    updatedAt: new Date().toISOString(),
+                }
+                console.log("data", data)
+
+        }
+        
+
+    }
+                
+
+    console.log("renderProfile", renderProfile)
+
 
 
 
@@ -299,17 +378,17 @@ const onClickBackFinalPage = (e) => {
                     }
 
                     <label className='login-text-element'>Upload Profile Image (optional)</label>
-                    <img src={emptyprofile} alt="Profile" className='login-profile-image' />
+                    {profileImage()}
 
-                    <input type="file" accept="image/*" className='upload-image-style'/>
-                    <button className={`login-button main-sign-in ${showConfirmPasswordTrue && "make-cursor-error"}`} type="submit">Sign Up</button>
+                    <input type="file" accept="image/*" className='upload-image-style' onChange={onChangeUploadImage} />
+                    <button className={`login-button main-sign-in ${showPasswordOne && "make-cursor-error" } ${showConfirmPasswordTrue && "make-cursor-error"}`} onClick={onClickSignInButton} type="submit">Sign Up</button>
                     <button className='back-one-button' onClick={onClickBackFinalPage}><FaArrowLeftLong />back</button>
 
                     </>
                     : <>
                     <div className='login-name-cont'>
                         <div>
-                            <label className='login-text-element' htmlFor="firstname">Frist Name</label>
+                            <label className='login-text-element' htmlFor="firstname">First Name</label>
                             <input value={firstname} onChange={(e) => setFirstName(e.target.value)} className='login-input-element name-inputs first-name-last-text' type="text" id="firstname" name="name" placeholder="Ex: Mohan" required />
                         </div>
 
