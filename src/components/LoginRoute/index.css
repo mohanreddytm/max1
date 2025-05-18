@@ -646,3 +646,38 @@ margin-left: 2px;}
     
 }
 
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+                visibility: hidden;
+        transform: translateY(20px);
+    }
+    10% {
+        opacity: 1;
+        transform: translateY(0);
+                visibility: visible;
+    }
+    90% {
+        opacity: 1;
+        transform: translateY(0);
+                visibility: visible;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(20px);
+        visibility: hidden;
+    }
+}
+
+
+.otp-send-succ-style{
+    background-color: #e3ffe3;
+    color: #399d2a;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 10px;
+    font-size: 14px;
+    display: flex;
+    animation: fadeInOut 2s ease-in-out;
+    align-items: center;
+}

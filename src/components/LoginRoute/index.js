@@ -39,7 +39,7 @@ const LoginRoute = () => {
     const [isNumber, setIsNumber] = useState(false)
     const [isSpecialChar, setIsSpecialChar] = useState(false)
 
-    const [renderProfile, setRenderProfile] = useState(false)
+    const [renderProfile, setRenderProfile] = useState("")
 
     const [showPasswordOne, setShowPasswordOne] = useState(false)
     const [showConfirmPasswordTrue, setShowConfirmPasswordTrue] = useState(false)
@@ -254,16 +254,17 @@ const LoginRoute = () => {
 
                 const data = {
                     email: email,
-                    firstName: firstname,
-                    lastName: lastname,
+                    firstname: firstname,
+                    lastname: lastname,
                     password: signInPassword,
                     profileImage: renderProfile,
-                    role: "USER",
-                    status: "ACTIVE",
+                    role: "user",
+                    isActive: true,
+                    emailVerified: true,
                     createdAt: new Date().toISOString(),
                     updatedAt: new Date().toISOString(),
                 }
-                const url = "http://localhost:5050/addUser"
+                const url = "https://maxbackendnew.onrender.com/addUser"
                 const options = {
                     method: "POST",
                     headers: {
@@ -271,9 +272,8 @@ const LoginRoute = () => {
                     },
                     body: JSON.stringify(data),
                 };
-                const respones = await fetch(url, options)
-                console.log("respones", respones)
-                console.log("data", data)
+                await fetch(url, options)
+
 
         }
         
@@ -422,6 +422,7 @@ const LoginRoute = () => {
                             <GoVerified />
                             <p className='verfied-text-in-login'>verified</p>
                         </div> }
+
                         
                         
                     </>
@@ -437,7 +438,7 @@ const LoginRoute = () => {
                         }}
                     />
                     <button className='back-one-button' onClick={() => setLogOrSign("login")}><FaArrowLeftLong />login</button>
-
+                                                <p className='otp-send-succ-style'>OTP Send successfully</p>
                     </>
                                         }
                     
