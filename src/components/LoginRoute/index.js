@@ -187,24 +187,11 @@ const LoginRoute = () => {
         const hasNumber = /[0-9]/.test(value);
         const hasSpecialChar = /[^A-Za-z0-9]/.test(value);
         const isLongEnough = value.length >= 8;
-
-        //console.log("hasUpperCase", hasUpperCase)
-
-
         setIsLowerCase(hasLowerCase)
-
-
         setIsUpperCase(hasUpperCase)
-
-
         setIsNumber(hasNumber)
-
-
         setIsSpecialChar(hasSpecialChar)
-
         setIsHas8Length(isLongEnough)
-
-
         if (!hasUpperCase || !hasLowerCase || !hasNumber || !hasSpecialChar || !isLongEnough) {
             setShowPasswordOne(true);
         } else {
@@ -247,7 +234,7 @@ const LoginRoute = () => {
         }
     }
 
-    const onClickSignInButton = (e) => {
+    const onClickSignInButton = async (e) => {
 
         e.preventDefault();
 
@@ -276,6 +263,16 @@ const LoginRoute = () => {
                     createdAt: new Date().toISOString(),
                     updatedAt: new Date().toISOString(),
                 }
+                const url = "http://localhost:5050/addUser"
+                const options = {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data),
+                };
+                const respones = await fetch(url, options)
+                console.log("respones", respones)
                 console.log("data", data)
 
         }
@@ -398,7 +395,7 @@ const LoginRoute = () => {
 
                         <div>
                             <label className='login-text-element' htmlFor="lastname">Last Name</label>
-                            <input value={lastname} onChange={(e) => setLastName(e.target.value)} className='login-input-element name-inputs first-name-last-text' type="tel" id="lastname" name="phone" placeholder="Ex: Reddy" required />
+                            <input value={lastname} onChange={(e) => setLastName(e.target.value)} className='login-input-element name-inputs first-name-last-text' type="text" id="lastname" name="phone" placeholder="Ex: Reddy" required />
                         </div>
                     </div>
                     <label className='login-text-element' htmlFor="email">Email</label>

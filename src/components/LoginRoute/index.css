@@ -382,6 +382,7 @@ height: 40px;
 .login-password-cont-otp{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
 
 }
@@ -579,6 +580,11 @@ margin-left: 2px;}
   }
 }
 
+.otp-text{
+    margin-bottom: 0px;
+    padding-bottom: 0px;        
+}
+
 .loading-one-mini-cont{
     display: flex;
     justify-content: center;
@@ -614,18 +620,29 @@ margin-left: 2px;}
     .login-form{
         width: 80%;
         margin-top: 40px;
+
         /* background-color: pink; */
 
     }
+    .signup-form{
+        height:max(520px,60vh);
+    }
     .login-right-main-cont{
         width: 90%;
-/* background-color: yellow; */
-display: flex;
-flex-direction: column;
-align-items: center;
-margin: 20px;
+        /* background-color: yellow; */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 20px;
 
     }
+    .sign-in-password-warning-cont{
+        left: 40px;
+        z-index: 1;
+        top: 150px;
+    }
+
 
     
 }
+
