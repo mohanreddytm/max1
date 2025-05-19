@@ -669,15 +669,24 @@ margin-left: 2px;}
     }
 }
 
-
 .otp-send-succ-style{
+    display: none;
     background-color: #e3ffe3;
     color: #399d2a;
     padding: 10px;
     border-radius: 4px;
     margin-top: 10px;
     font-size: 14px;
-    display: flex;
-    animation: fadeInOut 2s ease-in-out;
+    animation: fadeInOut 3s ease-in-out;
     align-items: center;
+    position: absolute;
+    bottom: 0;
 }
+
+
+
+.hide-the-oss{
+    display: flex;
+}
+
+

@@ -31,6 +31,8 @@ const LoginRoute = () => {
     const [continueSignUp, setContinueSignUp] = useState(false)
     const [changetopassword, setChangeToPassword] = useState(false)
 
+    const [triggerOtp, setTriggerOtp] = useState(0)
+
     const [statusOfTheProfilePhoto, setStatusOfTheProfilePhoto] = useState("PRIMARY")
 
     const [ishas8length, setIsHas8Length] = useState(false)
@@ -51,6 +53,20 @@ const LoginRoute = () => {
 
     const [loginEmail, setLoginEmail] = useState('')
     const [loginPassword, setLoginPassword] = useState('')
+
+    const [showOptSendSuccess, setShowOptSendSuccess] = useState(false)
+
+    useEffect(() => {
+        if(triggerOtp === 0) return;
+        setShowOptSendSuccess(true)
+        const intervalId = setTimeout(() => {
+            setTriggerOtp(0)
+            setShowOptSendSuccess(false)
+        }, 3000);
+
+        
+        return () => clearTimeout(intervalId);
+    }, [triggerOtp]);
 
     useEffect(() => {
     if (count === 0 || showOpt !== "verify") return;
@@ -73,33 +89,63 @@ const LoginRoute = () => {
     return Math.floor(100000 + Math.random() * 900000).toString();
   };
 
+  const resendOTP = () => {
+    if(count > 1) return;
+        if(email !== '' && firstname !== '' && lastname !== ''){
+            setCount(30)
+            setTriggerOtp(1)
+            setShowOtp("verify")
+                
+            const newOtp = generateOtp();
+            setOtp(newOtp);
+
+            const templateParams = {
+            user_name: firstname + ' ' + lastname,
+            user_email: email,
+            otp: newOtp,
+            };
+
+            emailjs
+            .send(
+                'service_qqs8hms',
+                'template_8g1y9pr',
+                templateParams,
+                'S0ZLkMkBWsYwbU2dw'
+            )
+        }
+
+    
+  };
+
+
     const handleSendOtp = (e) => {
         e.preventDefault();
-                const form = e.target.closest("form"); // Get form element from the button event
+
+        const form = e.target.closest("form"); // Get form element from the button event
         if (!form.reportValidity()) return;
 
 
-    if(email !== '' && firstname !== '' && lastname !== ''){
+        if(email !== '' && firstname !== '' && lastname !== ''){
+            setCount(30)
+            setTriggerOtp(1)
             setShowOtp("verify")
-            
-    const newOtp = generateOtp();
-    setOtp(newOtp);
+                
+            const newOtp = generateOtp();
+            setOtp(newOtp);
 
             const templateParams = {
-      user_name: firstname + ' ' + lastname,
-      user_email: email,
-      otp: newOtp,
-    };
+            user_name: firstname + ' ' + lastname,
+            user_email: email,
+            otp: newOtp,
+            };
 
-    emailjs
-      .send(
-        'service_qqs8hms',
-        'template_8g1y9pr',
-        templateParams,
-        'S0ZLkMkBWsYwbU2dw'
-      )
-      
-
+            emailjs
+            .send(
+                'service_qqs8hms',
+                'template_8g1y9pr',
+                templateParams,
+                'S0ZLkMkBWsYwbU2dw'
+            )
         }
 
     
@@ -151,6 +197,33 @@ const LoginRoute = () => {
             return <button className='send-otp-button' type='submit' onClick={handleSendOtp} >Send OTP</button>
         }
     }
+
+    const uploadToDbByGoogle = async (data) => {
+        const url = "https://maxbackendnew.onrender.com/addUser"
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email: data.email,
+                firstname: data.given_name,
+                lastname: data.family_name,
+                emailVerified: data.email_verified,
+                profileImage: data.picture,
+
+                role: "user",
+                isActive: true,
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString(),
+            }),
+        };
+
+        const response = await fetch(url, options);
+        const result = await response.json();
+                
+    }
+
 
     const onClickBackFinalPage = (e) => {
         e.preventDefault();
@@ -404,7 +477,7 @@ const LoginRoute = () => {
                     <>
                     <div className={`login-name-cont-mini`}>
                         <label className='login-text-element' htmlFor="otp">OTP</label>
-                        <p className={`otp-text ${count === 0 && "bright-login"}`}>
+                        <p onClick={resendOTP} className={`otp-text ${count === 0 && "bright-login"}`}>
                             Resend OTP({count} sec)
                         </p>
                     </div>
@@ -431,14 +504,14 @@ const LoginRoute = () => {
                     <GoogleLogin
                         onSuccess={(credentialResponse) => {
                         const decoded = jwtDecode(credentialResponse.credential);
-                        console.log("User Info:", decoded);
+                        uploadToDbByGoogle(decoded)
                         }}
                         onError={() => {
                         console.log('Login Failed');
                         }}
                     />
                     <button className='back-one-button' onClick={() => setLogOrSign("login")}><FaArrowLeftLong />login</button>
-                                                <p className='otp-send-succ-style'>OTP Send successfully</p>
+                    <p className={`otp-send-succ-style ${showOptSendSuccess ? "hide-the-oss" : "otp-send-succ-style"}`}>OTP Send successfully</p>
                     </>
                                         }
                     
