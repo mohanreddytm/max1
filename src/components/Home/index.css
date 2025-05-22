@@ -1,0 +1,59 @@
+:root {
+  --color-primary: #6366F1;       /* Indigo */
+  --color-secondary: #14B8A6;     /* Teal */
+  --color-accent: #F59E0B;        /* Amber */
+
+  --color-bg: #ece8e8;            /* Light Gray background */
+  --color-surface: #FFFFFF;       /* Cards, containers */
+  --color-muted: #D1D5DB;         /* Borders, lines */
+
+  --color-text: #111827;          /* Main text */
+  --color-text-light: #FFFFFF;    /* Text on dark backgrounds */
+}
+
+
+.home-initial-cont{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.home-initial-cont{
+  flex-grow: 1;
+  background-color: var(--color-bg);
+
+}
+
+
+.home-category-section{
+  display: flex;
+  align-items: center;
+  padding: 0px;
+  margin: 30px;
+
+}
+
+
+
+.every-category-list-element{
+  display: flex;
+  flex-direction: column;
+  
+  background-color: #ffffff;
+  padding: 10px 20px;
+  align-items: center;
+  margin-right: 10px;
+  border-radius: 20px;
+
+}
+.every-category-list-element img{
+  height: 100px;
+  width: 100px;
+  
+}
+.every-category-list-element h1{
+  font-size: 14px;
+  margin: 0px;
+  
+}

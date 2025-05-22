@@ -1,0 +1,130 @@
+:root {
+  --color-primary: #6366F1;       /* Indigo */
+  --color-secondary: #14B8A6;     /* Teal */
+  --color-accent: #F59E0B;        /* Amber */
+
+  --color-bg: #F9FAFB;            /* Light Gray background */
+  --color-surface: #FFFFFF;       /* Cards, containers */
+  --color-muted: #D1D5DB;         /* Borders, lines */
+
+  --color-text: #111827;          /* Main text */
+  --color-text-light: #FFFFFF;    /* Text on dark backgrounds */
+}
+
+
+
+nav{
+    width: 100vw;
+    background-color: var(--color-secondary);
+    display: flex;
+    height: 12vh;
+    justify-content: center;
+}
+
+.initial-header{
+    width: 90%;
+    display: flex;
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+.header-main-logo{
+    background-color: white;
+
+    border-radius: 4px;
+    padding: 10px 20px;
+    box-shadow: 0px 0px 10px 0px #D1D5DB;
+    display: flex;
+    align-items: center;
+}
+
+.M{
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+}
+
+.X{
+       border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px; 
+}
+
+
+.header-main-logo h1{
+    margin: 0px;
+}
+
+.raid-header-logo{
+    color: #00143e;
+    font-size: 20px;
+    
+}
+
+.header-input-search{
+    width: 40%;
+    display: flex;
+    align-items: center;
+    position:relative;
+}
+
+.search-input-header{
+    position: absolute;
+    left: 0;
+    border-right: 1px solid #333;
+    height: 100%;
+    width: 20px;
+    padding:0px 10px;
+    border-top-left-radius: 4px;
+
+    border-bottom-left-radius: 4px;
+    font-size: 12px;
+        display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.input-search-for-headers{
+    border: none;
+    outline: none;
+    padding: 10px 50px;
+    border-radius: 4px;
+    width: 100%;
+
+}
+
+.search-icons-header{
+    font-size: 20px;
+}
+
+.cart-item-header{
+    background-color:#ffffff;
+    font-size: 14px;
+    font-size: 500;
+    border-radius: 4px;
+    padding: 8px 16px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.cart-button-header-cont{
+    display: flex;
+    align-items: center;
+    position: relative;
+    
+}
+
+.count-of-cart-header{
+    position:absolute;
+    top:-5px;
+    color:#FFFFFF;
+    border: 1px solid var(--color-accent);
+    background-color: var(--color-accent);
+    right:-5px;
+    font-size: 10px;
+    border-radius: 50%;
+    margin: 0px;
+    font-weight: 500;
+    padding: 2px 6px;
+}
