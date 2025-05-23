@@ -3,7 +3,7 @@
   --color-secondary: #14B8A6;     /* Teal */
   --color-accent: #F59E0B;        /* Amber */
 
-  --color-bg: #ece8e8;            /* Light Gray background */
+  --color-bg: #f5f5f5;            /* Light Gray background */
   --color-surface: #FFFFFF;       /* Cards, containers */
   --color-muted: #D1D5DB;         /* Borders, lines */
 
@@ -30,8 +30,12 @@
   display: flex;
   align-items: center;
   padding: 0px;
-  margin: 30px;
 
+  padding: 20px;
+  margin-top: 0px;
+  overflow-x: scroll;
+  scrollbar-width: none;
+  position: relative;
 }
 
 
@@ -39,21 +43,42 @@
 .every-category-list-element{
   display: flex;
   flex-direction: column;
-  
-  background-color: #ffffff;
+    background-color: #ffffff;
+
   padding: 10px 20px;
   align-items: center;
-  margin-right: 10px;
+  cursor: pointer;
+  margin-right: 16px;
   border-radius: 20px;
 
+  
+}
+.right-arrow-topics{
+  position: absolute;
+  font-size: 14px;
+
+  background-color: rgb(171, 222, 231);
+height: 30%;
+border-bottom-left-radius: 10px;
+
+border-top-left-radius: 10px;
+padding: 10px;
+    right: 0;
+}
+.every-category-list-element:hover{
+  background-color: #ffffff;
 }
 .every-category-list-element img{
   height: 100px;
-  width: 100px;
+  width: 140px;
+  background-color: #ffffff;
+  border-radius: 10px;
   
 }
 .every-category-list-element h1{
   font-size: 14px;
   margin: 0px;
-  
+  color:#14B8A6;
+  margin-top: 10px;
+  font-weight: 500;
 }
