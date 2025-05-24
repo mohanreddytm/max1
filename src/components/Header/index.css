@@ -14,11 +14,17 @@
 
 
 nav{
-    width: 100vw;
+    max-width: 100vw;
     background-color: var(--color-secondary);
     display: flex;
-    height: 12vh;
+    height: max(80px, 12vh);
     justify-content: center;
+    position: fixed;
+    top:0;
+    right: 0;
+    left: 0;
+    margin-bottom: 12vh;
+    z-index: 1;
 }
 
 .initial-header{
