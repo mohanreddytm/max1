@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Header from '../Header'
 
 import homeappliences from '../../images/homeappliences1.png'
@@ -78,6 +78,17 @@ const majorCategories = [{
 const Home = () => {
   const scrollRef = useRef(null);
 
+  useEffect(() => {
+    const getTheItems = async () => {
+      const url = "https://maxbackendnew.onrender.com/search-ebay-products";
+      const response = await fetch(url);
+      const data = await response.json();
+      console.log(data);
+    }
+
+    getTheItems()
+  }, [])
+
   const scroll = (direction) => {
     if (scrollRef.current) {
       scrollRef.current.scrollBy({
@@ -125,9 +136,7 @@ const Home = () => {
                 <img src={saleimage} alt="sale image" className='sale-image-max-sale' />
               </div>
               <div className='button-content-max-sale'>
-                <div className='button-content'>
                   <button className='button-max-sale'>Explore Sale</button> 
-                </div>
               </div>
               
             </SaleCont>

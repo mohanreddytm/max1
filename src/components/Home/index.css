@@ -107,10 +107,14 @@
   top: 27%;
 }
 
+.every-category-list-element{
+  transition: all 0.3s ease-in-out;
 
+}
 
 .every-category-list-element:hover{
-  background-color: #ffffff;
+    transform: scale(1.03);
+      box-shadow: 0px 0px 5px 0px #14B8A6;
 }
 .every-category-list-element img{
   height: 100px;
@@ -247,57 +251,8 @@ border-radius: 10px;
   margin: 10px;
 }
 
-@keyframes rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.button-content-max-sale{
-  background-image: conic-gradient(from 0deg,red, rgb(255, 169, 169) 20%, rgb(192, 48, 48),rgb(133, 0, 0));
-  align-self: center;
-  display: flex;
-  flex-direction: column; 
-  justify-content: center;
-  align-items: center;
-  padding: 2px;
-  animation: rotate 2s linear infinite;
-  position: relative;
-  height: 20px;
-  width: 20px;
-
-}
-
-.button-content {
-  width: 90%;
-  height: 90%;
-  background: white;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-  z-index: 1;
-  position: relative;
-}
 
 
-.button-max-sale{
-  position: relative;
-  background-color: transparent;
-  border: 1px solid rgb(255, 0, 0);
-  background-color: red;
-  color: white;
-  padding: 8px 16px;
-  border-radius: 4px;
-
-  font-weight: 500;
-  cursor: pointer;
-
-}
 
 
 
@@ -331,4 +286,66 @@ border-radius: 10px;
   border-top-left-radius: 10px;
   margin: 0px;
 
+}
+
+@property --angle{
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.button-content-max-sale{
+  margin: 0 auto;
+  text-align: center;
+  border-radius: 4px;
+  padding: 2px;
+  z-index: 0;
+  position: relative;
+
+}
+
+
+
+.button-content-max-sale::after, .button-content-max-sale::before{
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-image: conic-gradient(from var(--angle), transparent 70%,rgb(255, 251, 0));
+
+  top:50%;
+  left:50%;
+  border-radius: 4px;
+ transform: translate(-50%, -50%);
+
+  z-index: -12;
+  animation: 3s spin  linear infinite;
+}
+
+.button-content-max-sale::before{
+ filter:blur(1.5rem);
+ height: 101%;
+  width: 101%;
+}
+@keyframes spin {
+  from{
+    --angle:0deg;
+  }to{
+    --angle:360deg;
+  }
+}
+
+
+
+
+
+.button-max-sale{
+  border:none;
+  background-color: rgb(255, 234, 234);
+  color: red;
+  padding: 8px 16px;
+  height: 100%;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
 }
