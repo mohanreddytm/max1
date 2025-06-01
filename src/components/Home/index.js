@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Header from '../Header'
 
 import homeappliences from '../../images/homeappliences1.png'
@@ -10,8 +10,11 @@ import sports from '../../images/sports2.png'
 import food from '../../images/food.png'
 import maxsale from '../../images/maxsale.png'
 import saleimage from '../../images/1.png'
+import trendingTshirtsImage from '../../images/trendingTshirts.jpg'
+import trendingKichen from '../../images/trendingKichen.jpg'
+import trendingMobiles from '../../images/trendingMobiles.jpg'
 
-import SaleCont from './extreameStyle.js'
+import {SaleCont, TrendingMainLeftCont,TrendingMainRightContentOne, TrendingMainRightContentTwo} from './extreameStyle.js'
 
 import { FaChevronRight, FaChevronLeft  } from "react-icons/fa";
 
@@ -78,15 +81,44 @@ const majorCategories = [{
 const Home = () => {
   const scrollRef = useRef(null);
 
+  const [trendingProducts, setTrendingProducts] = useState([]);
+  const [trendingTshirts, setTrendingTshirts] = useState([])
+
+  const eachTrendingOnetrue = (each) => {
+    return(
+      <li>
+        <img src={each.thumbnailImages[0].imageUrl} alt="trending item" />
+        <h1>${each.price.value}</h1>
+      </li>
+    )
+  }
+
+  
+
+
+
+
   useEffect(() => {
     const getTheItems = async () => {
-      const url = "https://maxbackendnew.onrender.com/search-ebay-products";
+      const url = "https://maxbackendnew.onrender.com/search-ebay-products/gun&limit=50&offset=0";
+            const response = await fetch(url);
+      const data = await response.json();
+
+      const filteredOne = data.itemSummaries.filter(each => each.priorityListing === true && each.topRatedBuyingExperience === true )
+      setTrendingProducts(filteredOne);
+      console.log(data)
+    }
+
+    const getTheTshirts = async () => {
+      const url = "https://maxbackendnew.onrender.com/search-ebay-products/iphone16&limit=2&offset=0";
       const response = await fetch(url);
       const data = await response.json();
-      console.log(data);
+      console.log(data.itemSummaries)
+      setTrendingTshirts(data.itemSummaries)
     }
 
     getTheItems()
+    getTheTshirts()
   }, [])
 
   const scroll = (direction) => {
@@ -143,16 +175,58 @@ const Home = () => {
             <div className='home-bottom-middle-cont'>
               <div className='home-bottom-middle-items'>
                 <h1 className='trending-items'>Trending ...</h1>
+                <div className='trending-main-cont'>
+                  <TrendingMainLeftCont image={trendingTshirtsImage} className='trending-main-left-cont'>
+                    <div>
+                    <h1>Trending T-Shirts</h1>
+                    <button className='explore-now-button'>Explore Now</button>
+                    </div>
+
+                  </TrendingMainLeftCont>
+                  <div className='trending-main-right-cont'>
+                    <TrendingMainRightContentOne image={trendingKichen} className='trending-main-right-content'>
+                      
+                    <div>
+                    <h1>Most Selling Kichen <br/> Appliences</h1>
+                    <button className='explore-now-button-kichen'>Explore Now</button>
+                    </div>
+                    </TrendingMainRightContentOne>
+                    <TrendingMainRightContentTwo image={trendingMobiles} className='trending-main-right-content'>
+            
+                      <div>
+                    <h1>Most Selling Mobiles</h1>
+                    <button className='explore-now-button-kichen'>Explore Now</button>
+                    </div>
+                    </TrendingMainRightContentTwo>
+                  </div>
+                </div>
               </div>
               <div className='home-bottom-middle-items'>
                 <p className='trending-items'>You Might Also Love ...</p>
+                  {trendingProducts.length === 0 ? <div className='loading-home'>
+                    <div>
+                      <p></p>
+                    </div>
+                    </div> : <ul className='trending-items-list'>
+                  {
+                    trendingProducts.slice(0,4).map(each => eachTrendingOnetrue(each))
+                  }
+                </ul> }
               </div>
-              <div className='home-bottom-middle-items'>
-                <h1 className='trending-items'>Based on your choice...</h1>
-              </div>
+              
             </div>
             <div className='home-bottom-right-cont'>
               <div className='home-bottom-right-items'>
+                {trendingTshirts.length === 0 ? <p>Loading...</p> : 
+                (
+                  <>
+                    <img src={trendingTshirts[0].image.imageUrl} />
+                    <h1>{trendingTshirts[0].title}</h1>
+                    <p>${trendingTshirts[0].price.value}</p>
+                    <button>Buy Now</button>
+                  </>
+                )
+                }
 
               </div>
               <div className='home-bottom-right-items'>

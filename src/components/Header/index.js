@@ -1,8 +1,13 @@
 import React from 'react'
 import './index.css'
+import { Link, withRouter } from 'react-router-dom';
+
 import { IoIosSearch } from "react-icons/io";
 
 const Header = () => {
+  const onClickLoginOne = () => {
+
+  }
   return (
     <nav>
         <div className='initial-header'>
@@ -25,7 +30,9 @@ const Header = () => {
               <p className='count-of-cart-header'>0</p>
             </div>
             
-            <button className='cart-item-header'>Login / Sign Up</button>
+            <Link to="/login">
+            <button className='cart-item-header' onClick={onClickLoginOne}>Login / Sign Up</button>
+            </Link>
         </div>
     </nav>
   )

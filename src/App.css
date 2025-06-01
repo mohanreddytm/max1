@@ -1,7 +1,4 @@
 /* Prevent any horizontal scroll and hide scrollbars */
-body{
-  margin-top: max(80px ,12vh);
-}
 
 html, body {
 
