@@ -82,7 +82,7 @@ const Home = () => {
   const scrollRef = useRef(null);
 
   const [trendingProducts, setTrendingProducts] = useState([]);
-  const [trendingTshirts, setTrendingTshirts] = useState([])
+  const [trendingIphones, setTrendingIphones] = useState([])
 
   const eachTrendingOnetrue = (each) => {
     return(
@@ -92,11 +92,6 @@ const Home = () => {
       </li>
     )
   }
-
-  
-
-
-
 
   useEffect(() => {
     const getTheItems = async () => {
@@ -110,11 +105,11 @@ const Home = () => {
     }
 
     const getTheTshirts = async () => {
-      const url = "https://maxbackendnew.onrender.com/search-ebay-products/iphone16&limit=2&offset=0";
+      const url = "https://maxbackendnew.onrender.com/search-ebay-products/iphone16&limit=5&offset=0";
       const response = await fetch(url);
       const data = await response.json();
       console.log(data.itemSummaries)
-      setTrendingTshirts(data.itemSummaries)
+      setTrendingIphones(data.itemSummaries)
     }
 
     getTheItems()
@@ -149,90 +144,150 @@ const Home = () => {
           </div>
           
           <div className='home-bottom-main-cont'>
-            <SaleCont image={maxsale} className='home-bottom-left-cont'>
-              <div className='home-left-max-sale-cont'>              
-                <svg className='triagle-cont' viewBox="0 0 200 200" width="100" height="100">
-                  <polygon points="100,10 40,130 162,130" fill="#F90003" stroke="none" strokeWidth="2" />
-                  <polygon points="40,130 100,130 100,190 10,190" fill="#03ECCF" stroke="none" strokeWidth="2" />
-                  <polygon points="100,130 162,130 190,190 100,190" fill="#0379C4" stroke="none" strokeWidth="2" />
-                  <polygon points="100,10 10,190 190,190" fill="none" stroke="none" strokeWidth="2" />
-                  <text x="100" y="100" fontSize="30" textAnchor="middle" fill="white">M</text>
-                  <text x="60" y="170" fontSize="30" textAnchor="middle" fill="white">A</text>
-                  <text x="140" y="170" fontSize="30" textAnchor="middle" fill="white">X</text>
-                </svg>
-                <h1>Sale <br/> Today</h1>
+            <div className='home-bottom-main-left-cont'>
+              <div className='home-bottom-main-protected-cont'>
+                <SaleCont image={maxsale} className='home-bottom-left-cont'>
+                  <div className='home-left-max-sale-cont'>              
+                    <svg className='triagle-cont' viewBox="0 0 200 200" width="100" height="100">
+                      <polygon points="100,10 40,130 162,130" fill="#F90003" stroke="none" strokeWidth="2" />
+                      <polygon points="40,130 100,130 100,190 10,190" fill="#03ECCF" stroke="none" strokeWidth="2" />
+                      <polygon points="100,130 162,130 190,190 100,190" fill="#0379C4" stroke="none" strokeWidth="2" />
+                      <polygon points="100,10 10,190 190,190" fill="none" stroke="none" strokeWidth="2" />
+                      <text x="100" y="100" fontSize="30" textAnchor="middle" fill="white">M</text>
+                      <text x="60" y="170" fontSize="30" textAnchor="middle" fill="white">A</text>
+                      <text x="140" y="170" fontSize="30" textAnchor="middle" fill="white">X</text>
+                    </svg>
+                    <h1>Sale <br/> Today</h1>
 
-              </div>
-              <h1 className='sale-name-max-sale'>Black Friday - <span>Min 40% Off</span></h1>
-              <div className='small-content-max-sale'>
-                <img src={saleimage} alt="sale image" className='sale-image-max-sale' />
-              </div>
-              <div className='button-content-max-sale'>
-                  <button className='button-max-sale'>Explore Sale</button> 
-              </div>
-              
-            </SaleCont>
-            <div className='home-bottom-middle-cont'>
-              <div className='home-bottom-middle-items'>
-                <h1 className='trending-items'>Trending ...</h1>
-                <div className='trending-main-cont'>
-                  <TrendingMainLeftCont image={trendingTshirtsImage} className='trending-main-left-cont'>
-                    <div>
-                    <h1>Trending T-Shirts</h1>
-                    <button className='explore-now-button'>Explore Now</button>
-                    </div>
-
-                  </TrendingMainLeftCont>
-                  <div className='trending-main-right-cont'>
-                    <TrendingMainRightContentOne image={trendingKichen} className='trending-main-right-content'>
-                      
-                    <div>
-                    <h1>Most Selling Kichen <br/> Appliences</h1>
-                    <button className='explore-now-button-kichen'>Explore Now</button>
-                    </div>
-                    </TrendingMainRightContentOne>
-                    <TrendingMainRightContentTwo image={trendingMobiles} className='trending-main-right-content'>
-            
+                  </div>
+                  <h1 className='sale-name-max-sale'>Black Friday - <span>Min 40% Off</span></h1>
+                  <div className='small-content-max-sale'>
+                    <img src={saleimage} alt="sale image" className='sale-image-max-sale' />
+                  </div>
+                  <div className='button-content-max-sale'>
+                      <button className='button-max-sale'>Explore Sale</button> 
+                  </div>
+                  
+                </SaleCont>
+                <div className='home-bottom-middle-cont'>
+                <div className='home-bottom-middle-items'>
+                  <h1 className='trending-items'>Trending ...</h1>
+                  <div className='trending-main-cont'>
+                    <TrendingMainLeftCont image={trendingTshirtsImage} className='trending-main-left-cont'>
                       <div>
-                    <h1>Most Selling Mobiles</h1>
-                    <button className='explore-now-button-kichen'>Explore Now</button>
+                      <h1>Trending T-Shirts</h1>
+                      <button className='explore-now-button'>Explore Now</button>
+                      </div>
+
+                    </TrendingMainLeftCont>
+                    <div className='trending-main-right-cont'>
+                      <TrendingMainRightContentOne image={trendingKichen} className='trending-main-right-content'>
+                        
+                      <div>
+                      <h1>Most Selling Kichen <br/> Appliences</h1>
+                      <button className='explore-now-button-kichen'>Explore Now</button>
+                      </div>
+                      </TrendingMainRightContentOne>
+                      <TrendingMainRightContentTwo image={trendingMobiles} className='trending-main-right-content'>
+              
+                        <div>
+                      <h1>Most Selling Mobiles</h1>
+                      <button className='explore-now-button-kichen'>Explore Now</button>
+                      </div>
+                      </TrendingMainRightContentTwo>
                     </div>
-                    </TrendingMainRightContentTwo>
                   </div>
                 </div>
+                <div className='home-bottom-middle-items'>
+                  <p className='trending-items'>You Might Also Love ...</p>
+                    {trendingProducts.length === 0 ? <div className='loading-home'>
+                      <div>
+                        <p></p>
+                      </div>
+                      </div> : <ul className='trending-items-list'>
+                    {
+                      trendingProducts.slice(0,4).map(each => eachTrendingOnetrue(each))
+                    }
+                  </ul> }
+                </div>
+                
+                </div>
               </div>
-              <div className='home-bottom-middle-items'>
-                <p className='trending-items'>You Might Also Love ...</p>
-                  {trendingProducts.length === 0 ? <div className='loading-home'>
-                    <div>
-                      <p></p>
+              <div className='home-bottom-main-left-bottom-cont-p'>
+                  <div className='home-bottom-left-p-one'>
+                    <div className='home-bottom-left-p-one-left'>
+                      <h1>Suggested For You</h1>
+                      <div className='home-bottom-left-p-one-left-content'>
+                        <div className='home-bottom-left-p-one-left-content-top'>
+
+                        </div>
+                        <div className='home-bottom-left-p-one-left-content-bottom'>
+                          <div>
+
+                          </div>
+                          <div>
+
+                          </div>
+                          <div>
+
+                          </div>
+                        </div>
+
+                      </div>
                     </div>
-                    </div> : <ul className='trending-items-list'>
-                  {
-                    trendingProducts.slice(0,4).map(each => eachTrendingOnetrue(each))
-                  }
-                </ul> }
+                    <div className='home-bottom-left-p-one-ball'>
+                      <h1><span>M</span><span>A</span><span>X</span> - Ball</h1>
+                      <div className='max-ball-main-cont'>  
+                        <div>
+                          <h1 className='ball-head'>one</h1>
+                          <button className='ball-button'>See what</button>
+                        </div>
+                        <div>
+                          <h1 className='ball-head'>one</h1>
+                          <button className='ball-button'>See what</button>
+                        </div>
+                        <div>
+                          <h1 className='ball-head'>one</h1>
+
+                          <button className='ball-button'>See what</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
               </div>
-              
             </div>
-            <div className='home-bottom-right-cont'>
-              <div className='home-bottom-right-items'>
-                {trendingTshirts.length === 0 ? <p>Loading...</p> : 
-                (
-                  <>
-                    <img src={trendingTshirts[0].image.imageUrl} />
-                    <h1>{trendingTshirts[0].title}</h1>
-                    <p>${trendingTshirts[0].price.value}</p>
+
+            <ul className='home-bottom-right-cont'>
+              {trendingIphones.length === 0 ? (
+                <p>Loading...</p>
+              ) : (
+                trendingIphones.map((each, index) => (
+                  <li className='home-bottom-right-items' key={index}>
+                    <img src={each.image.imageUrl} alt={each.title} />
+                    <h1>{each.title}</h1>
+                    <div>
+                      {each.marketingPrice && (
+                        
+                        <p className="original-price">
+                          ${each.marketingPrice.originalPrice.value}
+                        </p>
+                        
+                      )}
+                      <p>${each.price.value}</p>
+                      {each.marketingPrice && (
+                        
+                        <p className="discount-percent-home">
+                          ( {each.marketingPrice.discountPercentage}% Off )
+                        </p>
+                        
+                      )}
+                    </div>
                     <button>Buy Now</button>
-                  </>
-                )
-                }
+                  </li>
+                ))
+              )}
+            </ul>
 
-              </div>
-              <div className='home-bottom-right-items'>
-
-              </div>
-            </div>
           </div>
        </div>
 
