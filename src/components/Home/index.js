@@ -13,8 +13,10 @@ import saleimage from '../../images/1.png'
 import trendingTshirtsImage from '../../images/trendingTshirts.jpg'
 import trendingKichen from '../../images/trendingKichen.jpg'
 import trendingMobiles from '../../images/trendingMobiles.jpg'
+import sportsOne from '../../images/sports.jpg'
+import gym from '../../images/gym.png'
 
-import {SaleCont, TrendingMainLeftCont,TrendingMainRightContentOne, TrendingMainRightContentTwo} from './extreameStyle.js'
+import {SaleCont, TrendingMainLeftCont,TrendingMainRightContentOne, TrendingMainRightContentTwo,BallOne} from './extreameStyle.js'
 
 import { FaChevronRight, FaChevronLeft  } from "react-icons/fa";
 
@@ -83,6 +85,7 @@ const Home = () => {
 
   const [trendingProducts, setTrendingProducts] = useState([]);
   const [trendingIphones, setTrendingIphones] = useState([])
+  const [suggestionItems, setSuggestionItems] = useState([]);
 
   const eachTrendingOnetrue = (each) => {
     return(
@@ -101,19 +104,33 @@ const Home = () => {
 
       const filteredOne = data.itemSummaries.filter(each => each.priorityListing === true && each.topRatedBuyingExperience === true )
       setTrendingProducts(filteredOne);
-      console.log(data)
     }
 
     const getTheTshirts = async () => {
       const url = "https://maxbackendnew.onrender.com/search-ebay-products/iphone16&limit=5&offset=0";
       const response = await fetch(url);
       const data = await response.json();
-      console.log(data.itemSummaries)
+
       setTrendingIphones(data.itemSummaries)
+    }
+
+    const getTheSuggestionItems = async() => {
+      const url = "https://maxbackendnew.onrender.com/search-ebay-products/air%20conditioner%20split&limit=50&offset=0"
+      const response = await fetch(url);
+      const data = await response.json();
+      console.log(data.itemSummaries)
+    const sortedByDiscount = data.itemSummaries
+      .filter(item => item.marketingPrice && item.marketingPrice.discountPercentage)
+      .sort((a, b) => 
+        parseInt(b.marketingPrice.discountPercentage) - parseInt(a.marketingPrice.discountPercentage)
+      );
+      console.log(sortedByDiscount)
+      setSuggestionItems(sortedByDiscount.slice(0,4))
     }
 
     getTheItems()
     getTheTshirts()
+    getTheSuggestionItems()
   }, [])
 
   const scroll = (direction) => {
@@ -124,6 +141,7 @@ const Home = () => {
       });
     }
   };
+
   return (
     <div className='home-initial-cont'>
       <Header />
@@ -218,40 +236,59 @@ const Home = () => {
                     <div className='home-bottom-left-p-one-left'>
                       <h1>Suggested For You</h1>
                       <div className='home-bottom-left-p-one-left-content'>
-                        <div className='home-bottom-left-p-one-left-content-top'>
-
-                        </div>
-                        <div className='home-bottom-left-p-one-left-content-bottom'>
+                        {suggestionItems.length === 0 ? 
+                        <div className='loading-home-suggestion-items'>
                           <div>
-
+                            <p></p>
                           </div>
-                          <div>
-
+                        </div> :
+                        <>
+                          <div className='home-bottom-left-p-one-left-content-top'>
+                            <img src={suggestionItems[0].image.imageUrl} />
+                            <div className='suggestione-items-top-cont-inner'>
+                              <h1>{suggestionItems[0].title}</h1>
+                              <div className='suggestione-items-top-cont-inner-price-cont'>
+                                <h1 className='original-price'>${suggestionItems[0].marketingPrice.originalPrice.value}</h1>
+                                <h1 className='price'>${suggestionItems[0].price.value}</h1>
+                                <p>( {suggestionItems[0].marketingPrice.discountPercentage}% OFF )</p>
+                              </div>
+                              <button className='view-details-button-home'>View Details</button>
+                            </div>
                           </div>
-                          <div>
+                          <div className='home-bottom-left-p-one-left-content-bottom'>
+                            <div>
 
+                            </div>
+                            <div>
+
+                            </div>
+                            <div>
+
+                            </div>
                           </div>
-                        </div>
+                        </>
+                        }
+                        
 
                       </div>
                     </div>
                     <div className='home-bottom-left-p-one-ball'>
                       <h1><span>M</span><span>A</span><span>X</span> - Ball</h1>
-                      <div className='max-ball-main-cont'>  
+                      <BallOne image={sportsOne} className='max-ball-main-cont'>  
                         <div>
-                          <h1 className='ball-head'>one</h1>
+                          <h1 className='ball-head'>Sports <br/> Equipments</h1>
                           <button className='ball-button'>See what</button>
                         </div>
                         <div>
-                          <h1 className='ball-head'>one</h1>
+                          <h1 className='ball-head'>Sports and Gym <br/> Traning</h1>
                           <button className='ball-button'>See what</button>
                         </div>
                         <div>
-                          <h1 className='ball-head'>one</h1>
+                          <h1 className='ball-head'>Gym <br/> Equiments</h1>
 
                           <button className='ball-button'>See what</button>
                         </div>
-                      </div>
+                      </BallOne>
                     </div>
                   </div>
               </div>

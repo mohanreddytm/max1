@@ -16,3 +16,8 @@ export const TrendingMainRightContentTwo = styled.div`
     background-image: url(${props => props.image});
     margin-top:0px;
 `
+
+export const BallOne = styled.div`
+    background-image: url(${props => props.image});
+    background-size:cover;
+`
